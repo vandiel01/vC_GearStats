@@ -1,4 +1,5 @@
--- Completed 03/22/2025
+-- Completed 03/24/2025
+-- https://github.com/vandiel01/vC_GearStats
 -------------------------------------------------------
 -- Declare for this Page
 -------------------------------------------------------
@@ -79,7 +80,7 @@ function vC_GS_Display_iLevels()
 				vC_t:SetOwner(UIParent, "ANCHOR_NONE")
 				vC_t:SetHyperlink(itemLink)
 
-			local x, y, z = 0, 0, nil
+			local x, y, z = 0, "", nil
 			for b = 2, vC_t:NumLines() do
 				local s = _G["vC_t"..a.."TextLeft"..b]:GetText():gsub("|cFF808080",""):gsub("|r", "")
 				if (s:find("Sell Price") or s:find("Durability") or s:find("Binds when") or s:find("Binds to")) then break end
@@ -105,7 +106,7 @@ for a = 1, #vC_GS_Slot do
 	local vC_GS_SlotF = "vC_GS_"..vC_GS_Slot[a][1]
 	if ( _G[vC_GS_SlotF] == nil ) then
 		local vC_GS_SlotF = CreateFrame("Frame", vC_GS_SlotF, CharacterStatsPane, "BackdropTemplate")
-			vC_GS_SlotF:SetSize(42,25)
+			vC_GS_SlotF:SetSize(42,28)
 			vC_GS_SlotF:SetPoint(
 				(vC_GS_Slot[a][2] == 0 and "TOPLEFT" or "TOPRIGHT"),
 				"Character"..vC_GS_Slot[a][1],
@@ -113,23 +114,41 @@ for a = 1, #vC_GS_Slot do
 				(vC_GS_Slot[a][2] == 0 and 8 or -8),
 				((a == 15 or a == 16) and -16 or -7)
 			)
-			--vC_GS_SlotF:SetBackdrop({
-			--	bgFile = "Interface\\GLUES\\COMMON\\Glue-Tooltip-Background", tileEdge = true, tileSize = 16,
-			--	edgeFile = "Interface\\ToolTips\\UI-Tooltip-Border", edgeSize = 16,
-			--	insets = { left = 4, right = 4, top = 4, bottom = 4 },
-			--})
 			vC_GS_SlotF:SetFrameStrata("HIGH")
 
 		local vC_GS_T = _G["vC_GS_iL_"..vC_GS_Slot[a][1]]
-			vC_GS_T = vC_GS_SlotF:CreateFontString("vC_GS_iL_"..vC_GS_Slot[a][1], "ARTWORK", "SystemFont_Shadow_Med2_Outline")
+			vC_GS_T = vC_GS_SlotF:CreateFontString("vC_GS_iL_"..vC_GS_Slot[a][1], "ARTWORK", "GameFontNormalLargeOutline")
 			vC_GS_T:SetPoint((vC_GS_Slot[a][2] == 0 and "TOPLEFT" or "TOPRIGHT"), vC_GS_SlotF)
+			vC_GS_T:SetJustifyH((vC_GS_Slot[a][2] == 0 and "LEFT" or "RIGHT"))
 			vC_GS_T:SetText(0)
 
 		local vC_GS_B = _G["vC_GS_uG_"..vC_GS_Slot[a][1]]
-			vC_GS_B = vC_GS_SlotF:CreateFontString("vC_GS_uG_"..vC_GS_Slot[a][1], "ARTWORK", "SystemFont_Shadow_Small2_Outline")
+			vC_GS_B = vC_GS_SlotF:CreateFontString("vC_GS_uG_"..vC_GS_Slot[a][1], "ARTWORK", "GameFontWhite")
 			vC_GS_B:SetPoint((vC_GS_Slot[a][2] == 0 and "BOTTOMLEFT" or "BOTTOMRIGHT"), vC_GS_SlotF)
+			vC_GS_B:SetJustifyH((vC_GS_Slot[a][2] == 0 and "LEFT" or "RIGHT"))
 			vC_GS_B:SetText(0)
 	end
+end
+-------------------------------------------------------
+-- Armor Upgrade Level, Crest Use Order
+-------------------------------------------------------
+if ( vC_GS_UpgL_NxtCUpg == nil ) then
+	local vC_GS_UpgL_NxtCUpg = CreateFrame("Frame", "vC_GS_UpgL_NxtCUpg", CharacterFrame, "BackdropTemplate")
+		vC_GS_UpgL_NxtCUpg:SetSize(445, 40)
+		vC_GS_UpgL_NxtCUpg:SetBackdrop({
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark", tileEdge = true, tileSize = 16,
+			edgeFile = "Interface\\ToolTips\\UI-Tooltip-Border", edgeSize = 16,
+			insets = { left = 4, right = 4, top = 4, bottom = 4 },
+		})
+		vC_GS_UpgL_NxtCUpg:SetPoint("TOPLEFT", CharacterFrame, "TOPLEFT", 40, 38)
+
+	local vC_GS_Nxt_Upg = vC_GS_UpgL_NxtCUpg:CreateFontString("vC_GS_Nxt_Upg", "ARTWORK", "GameFontNormalOutline")
+		vC_GS_Nxt_Upg:SetPoint("LEFT", vC_GS_UpgL_NxtCUpg, "LEFT", 10, 0)
+		vC_GS_Nxt_Upg:SetText(
+			"|cFFFFFFFFGears|r: |cFF58D68DExplorer|r > |cFF5DADE2Adventure|r > |cFFBB8FCEVeteran|r > |cFFBB8FCEChampion|r > |cFFE59866Hero|r > |cFFE59866Mythic|r\n"..
+			"|cFFFFFFFFCrest|r: |cFF58D68DWeathered|r > |cFF5DADE2Carved|r > |cFFBB8FCERuned|r > |cFFE59866Glided|r"
+		)
+		vC_GS_Nxt_Upg:SetJustifyH("LEFT")
 end
 -------------------------------------------------------
 -- Auto Repair
@@ -162,8 +181,6 @@ local vC_RegEv = CreateFrame("Frame")
 		local vC_Events = {
 			"MERCHANT_SHOW",				-- Repair Gear
 			"PLAYER_EQUIPMENT_CHANGED",		-- Detect Equip Change?
---			"INSPECT_READY",				-- Character Pane Open?
---			"PLAYER_REGEN_ENABLED",			-- Character Pane Open?
 		}
 		for i = 1, #vC_Events do
 			vC_RegEv:RegisterEvent(vC_Events[i])
@@ -178,7 +195,6 @@ local vC_RegEv = CreateFrame("Frame")
 	end
 
 end)
-
 hooksecurefunc("PaperDollFrame_UpdateStats", function()
 	if ( not InCombatLockdown() ) then vC_GS_Display_iLevels() end
 end)
