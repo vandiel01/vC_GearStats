@@ -1,0 +1,10 @@
+## Title: Gear iLevel & Stats
+## IconTexture: Interface/ICONS/Achievement_GarrisonFollower_ItemLevel650
+## Name: vC_GS_iLevel_Stats
+## Author: Vandiel-Korgath
+## Interface: 110105
+## Version: 1.1
+## Notes-enUS: Shows iL of Gear, Equip/Overall, Repair Gear, Display Stat (A,E,V,C,H,M x/x) of the Gear
+## Category-enUS: .Van's Quality of Life
+
+vC_GearStats.lua
