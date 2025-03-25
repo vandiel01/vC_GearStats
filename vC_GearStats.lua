@@ -115,13 +115,11 @@ for a = 1, #vC_GS_Slot do
 				((a == 15 or a == 16) and -16 or -7)
 			)
 			vC_GS_SlotF:SetFrameStrata("HIGH")
-
 		local vC_GS_T = _G["vC_GS_iL_"..vC_GS_Slot[a][1]]
 			vC_GS_T = vC_GS_SlotF:CreateFontString("vC_GS_iL_"..vC_GS_Slot[a][1], "ARTWORK", "GameFontNormalLargeOutline")
 			vC_GS_T:SetPoint((vC_GS_Slot[a][2] == 0 and "TOPLEFT" or "TOPRIGHT"), vC_GS_SlotF)
 			vC_GS_T:SetJustifyH((vC_GS_Slot[a][2] == 0 and "LEFT" or "RIGHT"))
 			vC_GS_T:SetText(0)
-
 		local vC_GS_B = _G["vC_GS_uG_"..vC_GS_Slot[a][1]]
 			vC_GS_B = vC_GS_SlotF:CreateFontString("vC_GS_uG_"..vC_GS_Slot[a][1], "ARTWORK", "GameFontWhite")
 			vC_GS_B:SetPoint((vC_GS_Slot[a][2] == 0 and "BOTTOMLEFT" or "BOTTOMRIGHT"), vC_GS_SlotF)
@@ -174,18 +172,18 @@ end
 -------------------------------------------------------
 -- Register Events
 -------------------------------------------------------
-local vC_RegEv = CreateFrame("Frame")
-	vC_RegEv:RegisterEvent("ADDON_LOADED")
-	vC_RegEv:SetScript("OnEvent", function(s, e, ...)
+local vC_GS_RegEv = CreateFrame("Frame")
+	vC_GS_RegEv:RegisterEvent("ADDON_LOADED")
+	vC_GS_RegEv:SetScript("OnEvent", function(s, e, ...)
 	if ( e == "ADDON_LOADED" ) then
-		local vC_Events = {
+		local vC_GS_Events = {
 			"MERCHANT_SHOW",				-- Repair Gear
 			"PLAYER_EQUIPMENT_CHANGED",		-- Detect Equip Change?
 		}
-		for i = 1, #vC_Events do
-			vC_RegEv:RegisterEvent(vC_Events[i])
+		for i = 1, #vC_GS_Events do
+			vC_GS_RegEv:RegisterEvent(vC_GS_Events[i])
 		end
-		vC_RegEv:UnregisterEvent("ADDON_LOADED")
+		vC_GS_RegEv:UnregisterEvent("ADDON_LOADED")
 	end
 	-- Repair Gear
 	if ( e == "MERCHANT_SHOW" ) then vC_GS_Repair_Gears() end
@@ -193,7 +191,6 @@ local vC_RegEv = CreateFrame("Frame")
 	if ( e == "PLAYER_EQUIPMENT_CHANGED" ) then
 		if ( CharacterFrame:IsShown() ) then vC_GS_Display_iLevels() end
 	end
-
 end)
 hooksecurefunc("PaperDollFrame_UpdateStats", function()
 	if ( not InCombatLockdown() ) then vC_GS_Display_iLevels() end

@@ -1,6 +1,6 @@
 ## Title: Gear iLevel & Stats
-## IconTexture: Interface/ICONS/Achievement_GarrisonFollower_ItemLevel650
-## Name: Gear Stats
+## IconTexture: Interface/ICONS/Achievement_Level_70
+## Name: Gear iLevel & Stats
 ## Author: Vandiel-Korgath
 ## Interface: 110105
 ## Version: 1.2
