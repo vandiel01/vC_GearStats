@@ -3,7 +3,7 @@
 ## Name: Gear iLevel & Stats
 ## Author: Vandiel-Korgath
 ## Interface: 110105
-## Version: 1.3
+## Version: 1.4
 
 ## Category-enUS: .Van's Quality of Life
 ## Notes-enUS: Shows iL of Gear, Equip/Overall, Repair Gear, Display Stat (A,E,V,C,H,M x/x) of the Gear
