@@ -39,12 +39,6 @@ local vC_GS_TWW_CurrList = {
 	{ 3108, "5DADE2", "Carved", },
 	{ 3109, "BB8FCE", "Runed", },
 	{ 3110, "E59866", "Glided", },
-	{ 0, "58D68D", "Explorer", },
-	{ 0, "5DADE2", "Adventure", },
-	{ 0, "BB8FCE", "Veteran", },
-	{ 0, "BB8FCE", "Champion", },
-	{ 0, "E59866", "Hero", },
-	{ 0, "E59866", "Mythic", },
 }
 -------------------------------------------------------
 -- Simplified SetBackdrop
@@ -102,9 +96,7 @@ function vC_GS_Display_iLevels()
 	
 	for c = 1, #vC_GS_TWW_CurrList do
 		local vC_GS_tCLn = _G["vC_GS_CNum_" .. vC_GS_TWW_CurrList[c][3]]
-		if ( vC_GS_TWW_CurrList[c][1] ~= 0 ) then
-			vC_GS_tCLn:SetText(C_CurrencyInfo.GetCurrencyInfo(vC_GS_TWW_CurrList[c][1]).quantity )
-		end
+		vC_GS_tCLn:SetText(C_CurrencyInfo.GetCurrencyInfo(vC_GS_TWW_CurrList[c][1]).quantity)
 	end
 end
 -------------------------------------------------------
@@ -160,7 +152,7 @@ if ( vC_GS_Total == nil ) then
 	end
 
 	local vC_GS_TWW_GearUpg = CreateFrame("Frame", "vC_GS_TWW_GearUpg", CharacterFrame, "BackdropTemplate")
-		vC_GS_TWW_GearUpg:SetSize(135, 205)
+		vC_GS_TWW_GearUpg:SetSize(135, 110)
 		vC_GS_BackDrop(vC_GS_TWW_GearUpg, 312922, 137057, 16)
 		vC_GS_TWW_GearUpg:SetPoint("TOPLEFT", CharacterFrame, "TOPRIGHT", 0, -24)
 
@@ -179,16 +171,26 @@ if ( vC_GS_Total == nil ) then
 				vC_GS_CLt:SetJustifyH("LEFT")
 				vC_GS_CLt:SetText("|cff" .. vC_GS_TWW_CurrList[i][2] .. vC_GS_TWW_CurrList[i][3] .. "|r")
 				
-			if ( i == 1 or i == 5 ) then
-				RowCount = RowCount - 7
+			if ( i == 1 ) then
+				RowCount = RowCount - 10
 				local vC_GS_Sep = vC_GS_TWW_GearUpg:CreateTexture("vC_GS_Sep")
 					vC_GS_Sep:SetSize(115, 2)
 					vC_GS_Sep:SetTexture(130871)
 					vC_GS_Sep:SetColorTexture(.8, .8, .8, .5)
-					vC_GS_Sep:SetPoint("TOPLEFT", vC_GS_TWW_GearUpg, "TOPLEFT", 9, RowCount-11)
+					vC_GS_Sep:SetPoint("TOPLEFT", vC_GS_TWW_GearUpg, "TOPLEFT", 9, RowCount-10)
 			end
 			RowCount = RowCount - 16
 		end
+
+	local vC_GS_Gear_Upg_Order = CreateFrame("Frame", "vC_GS_Gear_Upg_Order", CharacterFrame, "BackdropTemplate")
+		vC_GS_Gear_Upg_Order:SetSize(410, 28)
+		vC_GS_BackDrop(vC_GS_Gear_Upg_Order, 312922, 137057, 16)
+		vC_GS_Gear_Upg_Order:SetPoint("TOPLEFT", CharacterFrame, "TOPLEFT", 50, 26)
+			vC_GS_Gear_Upg_Order_T = vC_GS_Gear_Upg_Order:CreateFontString(nil, "ARTWORK", "GameFontWhite")
+			vC_GS_Gear_Upg_Order_T:SetPoint("LEFT", vC_GS_Gear_Upg_Order, "LEFT", 15, 0)
+			vC_GS_Gear_Upg_Order_T:SetText(
+				"|cff58D68DExplorer|r > |cff5DADE2Adventure|r > |cffBB8FCEVeteran|r > |cffBB8FCEChampion|r > |cffE59866Hero|r > |cffE59866Mythic|r"				
+			)
 end
 -------------------------------------------------------
 -- Auto Repair
