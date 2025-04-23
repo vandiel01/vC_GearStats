@@ -1,4 +1,4 @@
--- Completed 03/24/2025
+-- Completed 04/15/2025
 -- https://github.com/vandiel01/vC_GearStats
 -------------------------------------------------------
 -- Declare for this Page
@@ -60,7 +60,7 @@ function vC_GS_Display_iLevels()
 		CharacterStatsPane.ItemLevelFrame.Value:SetFontObject("SystemFont_Shadow_Huge1_Outline")
 		CharacterStatsPane.ItemLevelFrame.Value:SetText(format("%.2f",equipped))
 		
-	vC_GS_Total:SetText("|cffF8C471" .. format("%.2f",equipped) .. "|r / |cffF1948A" .. format("%.2f",overall) .. "|r")	
+	vC_GS_Total:SetText("|cffF8C471" .. format("%.2f",equipped) .. "|r / |cffF1948A" .. format("%.2f",overall) .. "|r")
 
 	local vC_ItemLevel = "Item Level (%d+)"
 	local vC_GearSeason = "(%w+) Season (%d+)"
@@ -92,8 +92,7 @@ function vC_GS_Display_iLevels()
 			_G["vC_GS_uG_" .. vC_GS_Slot[a][1]]:SetText(z)
 		end
 	end
-	
-	
+
 	for c = 1, #vC_GS_TWW_CurrList do
 		local vC_GS_tCLn = _G["vC_GS_CNum_" .. vC_GS_TWW_CurrList[c][3]]
 		vC_GS_tCLn:SetText(C_CurrencyInfo.GetCurrencyInfo(vC_GS_TWW_CurrList[c][1]).quantity)
@@ -154,7 +153,7 @@ if ( vC_GS_Total == nil ) then
 	local vC_GS_TWW_GearUpg = CreateFrame("Frame", "vC_GS_TWW_GearUpg", CharacterFrame, "BackdropTemplate")
 		vC_GS_TWW_GearUpg:SetSize(135, 110)
 		vC_GS_BackDrop(vC_GS_TWW_GearUpg, 312922, 137057, 16)
-		vC_GS_TWW_GearUpg:SetPoint("TOPLEFT", CharacterFrame, "TOPRIGHT", 0, -24)
+		vC_GS_TWW_GearUpg:SetPoint("BOTTOMLEFT", CharacterFrame, "BOTTOMRIGHT", 0, 0)
 
 		local RowCount = -10
 		for i = 1, #vC_GS_TWW_CurrList do
@@ -170,7 +169,7 @@ if ( vC_GS_Total == nil ) then
 				vC_GS_CLt:SetPoint("TOPLEFT", vC_GS_TWW_GearUpg, "TOPLEFT", 50, RowCount)
 				vC_GS_CLt:SetJustifyH("LEFT")
 				vC_GS_CLt:SetText("|cff" .. vC_GS_TWW_CurrList[i][2] .. vC_GS_TWW_CurrList[i][3] .. "|r")
-				
+
 			if ( i == 1 ) then
 				RowCount = RowCount - 10
 				local vC_GS_Sep = vC_GS_TWW_GearUpg:CreateTexture("vC_GS_Sep")
