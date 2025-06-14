@@ -63,8 +63,11 @@ function vC_GS_Display_iLevels()
 	vC_GS_Total:SetText("|cffF8C471" .. format("%.2f",equipped) .. "|r / |cffF1948A" .. format("%.2f",overall) .. "|r")
 
 	local vC_ItemLevel = "Item Level (%d+)"
-	local vC_GearSeason = "(%w+) Season (%d+)"
 	local vC_UpgradeLevel = "Upgrade Level: (%w+) (%d+\/%d+)"
+	
+	local vC_GS_SL = "Shadowland Season (%d+)"			-- 1, 2, 3, 4
+	local vC_GS_DF = "Dragonflight Season (%d+)"		-- 1, 2, 3, 4
+	local vC_GS_TW = "The War Within Season (%d+)"		-- 1, 2
 
 	for a = 1, #vC_GS_Slot do    
 		local slotId = GetInventorySlotInfo(vC_GS_Slot[a][1])
@@ -80,8 +83,8 @@ function vC_GS_Display_iLevels()
 			local x, y, z = 0, "", nil
 			for b = 2, vC_t:NumLines() do
 				local s = _G["vC_t" .. a .. "TextLeft" .. b]:GetText():gsub("|cFF808080",""):gsub("|r", "")
-				if (s:find("Sell Price") or s:find("Durability") or s:find("Binds when") or s:find("Binds to")) then break end
-				if ( s:find(vC_GearSeason) ) then x = tonumber(s:match("%d+")) end
+				if ( s:find("Soulbound") or s:find("Warbound until equipped") or s:find("Binds when equipped") ) then break end
+				if ( s:match(vC_GS_SL) or s:match(vC_GS_DF) or (s:match(vC_GS_TW) and tonumber(s:match("%d+")) == 1) ) then x = 1 end
 				if ( s:find(vC_ItemLevel) ) then y = tonumber(s:match("%d+")) end
 				if ( s:find(vC_UpgradeLevel) ) then
 					z = s:match("%w+ %d+\/%d+")
