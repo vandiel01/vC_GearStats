@@ -96,9 +96,11 @@ function vC_GS_Display_iLevels()
 		end
 	end
 
-	for c = 1, #vC_GS_TWW_CurrList do
-		local vC_GS_tCLn = _G["vC_GS_CNum_" .. vC_GS_TWW_CurrList[c][3]]
-		vC_GS_tCLn:SetText(C_CurrencyInfo.GetCurrencyInfo(vC_GS_TWW_CurrList[c][1]).quantity)
+	if ( UnitLevel("player") == 80 )
+		for c = 1, #vC_GS_TWW_CurrList do
+			local vC_GS_tCLn = _G["vC_GS_CNum_" .. vC_GS_TWW_CurrList[c][3]]
+			vC_GS_tCLn:SetText(C_CurrencyInfo.GetCurrencyInfo(vC_GS_TWW_CurrList[c][1]).quantity)
+		end
 	end
 end
 -------------------------------------------------------
@@ -153,11 +155,11 @@ if ( vC_GS_Total == nil ) then
 			vC_GS_B:SetText(0)
 	end
 
+
 	local vC_GS_TWW_GearUpg = CreateFrame("Frame", "vC_GS_TWW_GearUpg", CharacterFrame, "BackdropTemplate")
 		vC_GS_TWW_GearUpg:SetSize(135, 110)
 		vC_GS_BackDrop(vC_GS_TWW_GearUpg, 312922, 137057, 16)
 		vC_GS_TWW_GearUpg:SetPoint("BOTTOMLEFT", CharacterFrame, "BOTTOMRIGHT", 0, 0)
-
 		local RowCount = -10
 		for i = 1, #vC_GS_TWW_CurrList do
 			local vC_GS_CLn = "vC_GS_CNum_" .. vC_GS_TWW_CurrList[i][3]
@@ -183,6 +185,7 @@ if ( vC_GS_Total == nil ) then
 			end
 			RowCount = RowCount - 16
 		end
+	if ( UnitLevel("player") ~= 80 ) then vC_GS_TWW_GearUpg:Hide() else vC_GS_TWW_GearUpg:Show() end
 
 	local vC_GS_Gear_Upg_Order = CreateFrame("Frame", "vC_GS_Gear_Upg_Order", CharacterFrame, "BackdropTemplate")
 		vC_GS_Gear_Upg_Order:SetSize(410, 28)
