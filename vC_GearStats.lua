@@ -96,7 +96,7 @@ function vC_GS_Display_iLevels()
 		end
 	end
 
-	if ( UnitLevel("player") == 80 )
+	if ( UnitLevel("player") == 80 ) then
 		for c = 1, #vC_GS_TWW_CurrList do
 			local vC_GS_tCLn = _G["vC_GS_CNum_" .. vC_GS_TWW_CurrList[c][3]]
 			vC_GS_tCLn:SetText(C_CurrencyInfo.GetCurrencyInfo(vC_GS_TWW_CurrList[c][1]).quantity)
